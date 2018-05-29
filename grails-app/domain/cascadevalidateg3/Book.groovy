@@ -1,27 +1,21 @@
 package cascadevalidateg3
 
-class Author {
+class Book {
     String name
-    Publisher publisher
 
-    static hasMany = [books: Book]
+    static belongsTo = [author: Author]
 
     boolean validateCalled = false
     static transients = ['validateCalled']
 
     static constraints = {
         name(nullable: false, validator: { val, obj ->
-            println "validator called for Author.name"
+            println "validator called for Book.name"
             obj.validateCalled = true
         })
-        publisher(nullable: true)
-    }
-
-    static mapping = {
-        publisher(cascadeValidate: false)
     }
 
     def beforeValidate() {
-        println "beforeValidate called on Author"
+        println "beforeValidate called on Book"
     }
 }
