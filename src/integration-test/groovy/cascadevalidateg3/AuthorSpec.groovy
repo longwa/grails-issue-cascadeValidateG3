@@ -41,7 +41,7 @@ class AuthorSpec extends Specification {
         !author.publisher.beforeValidateCalled
     }
 
-    void "validate should cascade to associated entity that is dirty"() {
+    void "validate should be called on associated entity that is dirty on flush"() {
         def id = Author.withNewSession {
             Publisher publisher = new Publisher(name: 'Brad').save()
             new Author(name: 'Aaron', publisher: publisher).save(flush: true, failOnError: true).id
